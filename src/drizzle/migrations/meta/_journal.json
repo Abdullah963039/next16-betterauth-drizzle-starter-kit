@@ -8,6 +8,20 @@
       "when": 1762080201591,
       "tag": "0000_lazy_black_cat",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1762081193835,
+      "tag": "0001_fresh_maggott",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1762083101519,
+      "tag": "0002_magical_baron_strucker",
+      "breakpoints": true
     }
   ]
 }

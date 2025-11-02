@@ -25,7 +25,8 @@ export const signinSchema = z.object({
   email: z
     .email({ error: 'Invalid email provided' })
     .min(1, { error: 'Email is required' }),
-  password: z.string().min(1, { error: 'Password is required' })
+  password: z.string().min(1, { error: 'Password is required' }),
+  remember: z.boolean()
 })
 
 export type SigninFormValues = z.infer<typeof signinSchema>

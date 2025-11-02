@@ -1,7 +1,7 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { UserTable } from './user'
 
-export const SessionTable = pgTable('sessions', {
+export const SessionTable = pgTable('session', {
   id: text('id').primaryKey(),
   expiresAt: timestamp('expires_at').notNull(),
   token: text('token').notNull().unique(),

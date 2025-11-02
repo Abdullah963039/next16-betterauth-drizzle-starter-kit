@@ -3,24 +3,26 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
-import { SignupFormValues, signupSchema } from './validation'
+import { SigninFormValues, signinSchema } from './validation'
 import { FormInput, FormInputPassword } from '@/components/form/form-input'
-import { toast } from 'sonner'
+import { FormCheckbox } from '@/components/form/form-checkbox'
+import Link from 'next/link'
 import { authClient } from '@/lib/auth-client'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
-export const SignupForm = () => {
+export const SigninForm = () => {
   const router = useRouter()
-
-  const form = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
-    defaultValues: { name: '', email: '', password: '', confirmPassword: '' }
+  const form = useForm<SigninFormValues>({
+    resolver: zodResolver(signinSchema),
+    defaultValues: { email: '', password: '', remember: true }
   })
 
-  async function onSubmit(data: SignupFormValues) {
+  async function onSubmit(data: SigninFormValues) {
     try {
-      await authClient.signUp.email({
+      await authClient.signIn.email({
         ...data,
+        rememberMe: data.remember,
         fetchOptions: {
           onError(context) {
             toast.error(context.error.message ?? context.error.statusText)
@@ -40,8 +42,6 @@ export const SignupForm = () => {
       onSubmit={form.handleSubmit(onSubmit)}
       className="flex flex-col items-end gap-4"
     >
-      <FormInput control={form.control} name="name" label="Name" />
-
       <FormInput
         control={form.control}
         name="email"
@@ -55,11 +55,20 @@ export const SignupForm = () => {
         label="Password"
       />
 
-      <FormInputPassword
-        control={form.control}
-        name="confirmPassword"
-        label="Confirm password"
-      />
+      <div className="flex w-full flex-1 items-center justify-between">
+        <FormCheckbox
+          control={form.control}
+          name="remember"
+          label="Remember me"
+        />
+
+        <Link
+          href={'/forgot-password'}
+          className="block shrink-0 text-sm hover:underline hover:underline-offset-4"
+        >
+          Forgot Password?
+        </Link>
+      </div>
 
       <Button
         type="submit"
@@ -67,7 +76,7 @@ export const SignupForm = () => {
         className="mt-4 max-md:w-full"
         disabled={form.formState.isSubmitting}
       >
-        Sign up
+        Sign in
       </Button>
     </form>
   )
