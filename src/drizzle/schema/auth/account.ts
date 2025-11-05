@@ -1,5 +1,6 @@
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 import { UserTable } from './user'
+import { createdAt, updatedAt } from '../helpers'
 
 export const AccountTable = pgTable('account', {
   id: text('id').primaryKey(),
@@ -15,8 +16,6 @@ export const AccountTable = pgTable('account', {
   refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
   scope: text('scope'),
   password: text('password'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at')
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull()
+  createdAt,
+  updatedAt
 })

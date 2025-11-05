@@ -7,11 +7,14 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { SignupForm } from '@/features/auth/components/signup-form'
+import { requireUnauth } from '@/features/auth/lib/utils'
 import Link from 'next/link'
 
-export default function SignupPage() {
+export default async function SignupPage() {
+  await requireUnauth('/dashboard')
+
   return (
-    <div className="flex w-full items-center justify-center px-6">
+    <div className="my-8 flex w-full items-center justify-center px-6">
       <Card className="w-full max-w-3xl rounded-2xl">
         <CardHeader>
           <CardTitle className="text-2xl">Get Started.</CardTitle>

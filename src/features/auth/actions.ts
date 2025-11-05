@@ -8,7 +8,7 @@ export async function serverSignUp({
   email,
   name,
   password
-}: SignupFormValues) {
+}: SignupFormValues): Promise<{ error: boolean; message: string }> {
   try {
     await auth.api.signUpEmail({
       body: {
@@ -19,6 +19,8 @@ export async function serverSignUp({
       },
       headers: await headers()
     })
+
+    return { error: false, message: 'Signed up successfully.' }
   } catch (error: unknown) {
     console.log(error)
 
@@ -30,7 +32,7 @@ export async function serverSignIn({
   email,
   password,
   remember
-}: SigninFormValues) {
+}: SigninFormValues): Promise<{ error: boolean; message: string }> {
   try {
     await auth.api.signInEmail({
       body: {
@@ -40,6 +42,8 @@ export async function serverSignIn({
       },
       headers: await headers()
     })
+
+    return { error: false, message: 'Signed in successfully.' }
   } catch (error: unknown) {
     console.log(error)
 
@@ -47,11 +51,16 @@ export async function serverSignIn({
   }
 }
 
-export async function serverSignOut() {
+export async function serverSignOut(): Promise<{
+  error: boolean
+  message: string
+}> {
   try {
     await auth.api.signOut({
       headers: await headers()
     })
+
+    return { error: false, message: 'Signed out successfully.' }
   } catch (error: unknown) {
     console.log(error)
 

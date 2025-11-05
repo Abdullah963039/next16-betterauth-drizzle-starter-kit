@@ -1,4 +1,5 @@
-import { boolean, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { boolean, pgTable, text } from 'drizzle-orm/pg-core'
+import { createdAt, updatedAt } from '../helpers'
 
 export const UserTable = pgTable('user', {
   id: text('id').primaryKey(),
@@ -6,9 +7,6 @@ export const UserTable = pgTable('user', {
   email: text('email').notNull().unique(),
   emailVerified: boolean('email_verified').default(true).notNull(), // True by default, could be changed and implement email verfication service
   image: text('image'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at')
-    .defaultNow()
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull()
+  createdAt,
+  updatedAt
 })

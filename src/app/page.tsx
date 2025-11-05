@@ -1,8 +1,11 @@
 import { Button } from '@/components/ui/button'
+import { requireUnauth } from '@/features/auth/lib/utils'
 import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function Home() {
+  await requireUnauth('/dashboard')
+
   return (
     <div className="flex min-h-dvh flex-col items-center justify-center gap-y-16">
       <div className="space-y-2 text-center">

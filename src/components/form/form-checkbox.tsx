@@ -1,12 +1,17 @@
-import { Checkbox } from '@/components/ui/checkbox'
-import { FormBase, FormControlFunc } from './base'
+import { Checkbox } from "@/components/ui/checkbox";
+import { FormBase, FormControlFunc } from "./base";
 
 export const FormCheckbox: FormControlFunc = (props) => {
   return (
     <FormBase {...props} horizontal controlFirst>
       {({ onChange, value, ...field }) => (
-        <Checkbox {...field} checked={value} onCheckedChange={onChange} />
+        <Checkbox
+          {...field}
+          disabled={props.disabled}
+          checked={value}
+          onCheckedChange={onChange}
+        />
       )}
     </FormBase>
-  )
-}
+  );
+};
